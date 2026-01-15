@@ -20,4 +20,3 @@ export function generateSlug(title: string): string {
     .replace(/-+/g, "-") // Remove hífens duplicados
     .replace(/^-+|-+$/g, ""); // Remove hífens no início e fim
 }
-

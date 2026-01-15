@@ -3,11 +3,53 @@
  */
 
 /**
+ * Verifica se um token JWT está expirado
+ */
+function isTokenExpired(token: string): boolean {
+  try {
+    const parts = token.split(".");
+    if (parts.length !== 3) {
+      return true;
+    }
+
+    // Decodifica o payload (segunda parte)
+    const payload = parts[1];
+    // Adiciona padding se necessário
+    const paddedPayload = payload + "=".repeat((4 - (payload.length % 4)) % 4);
+    const decodedPayload = JSON.parse(
+      atob(paddedPayload.replace(/-/g, "+").replace(/_/g, "/"))
+    );
+
+    // Verifica se o token tem expiração
+    if (decodedPayload.exp) {
+      // exp está em segundos, Date.now() está em milissegundos
+      const expirationTime = decodedPayload.exp * 1000;
+      const currentTime = Date.now();
+
+      // Se o token expirou, retorna true
+      return currentTime >= expirationTime;
+    }
+
+    return false;
+  } catch (error) {
+    // Se houver erro ao decodificar, considera expirado
+    return true;
+  }
+}
+
+/**
  * Obtém o token de autenticação do localStorage
+ * Se o token estiver expirado, remove-o automaticamente
  */
 export function getAuthTokenFromClient(): string | null {
   if (typeof window !== "undefined") {
-    return localStorage.getItem("auth_token");
+    const token = localStorage.getItem("auth_token");
+    if (token && isTokenExpired(token)) {
+      // Token expirado, remove do localStorage e cookie
+      removeAuthToken();
+      return null;
+    }
+    return token;
   }
   return null;
 }

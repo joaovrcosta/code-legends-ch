@@ -1,3 +1,6 @@
 export { getCurrentUser, type User } from "./get-current-user";
 export { authenticateUser } from "./authenticate";
+export { listUsers, type User as UserFull } from "./list-users";
+export { deleteUser } from "./delete-user";
+export { getUserById } from "./get-user-by-id";
 
