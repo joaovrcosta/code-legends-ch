@@ -8,9 +8,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
+import { InstructorSelect } from "@/components/ui/instructor-select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createCourse, listCourses, type CreateCourseData } from "@/actions/course";
 import { listCategories } from "@/actions/category";
+import { listInstructors } from "@/actions/user";
 import { getAuthTokenFromClient } from "@/lib/auth";
 import { generateSlug } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
@@ -21,7 +23,7 @@ export default function NewCoursePage() {
   const [loading, setLoading] = useState(false);
   const [slugManuallyEdited, setSlugManuallyEdited] = useState(false);
   const [categories, setCategories] = useState<Array<{ id: string; name: string }>>([]);
-  const [instructors, setInstructors] = useState<string[]>([]);
+  const [instructors, setInstructors] = useState<Array<{ id: string; name: string; avatar?: string | null }>>([]);
   const [formData, setFormData] = useState<CreateCourseData>({
     title: "",
     slug: "",
@@ -63,9 +65,15 @@ export default function NewCoursePage() {
 
   const loadInstructors = async () => {
     try {
-      const { courses } = await listCourses();
-      const uniqueInstructors = [...new Set(courses.map((c) => c.instructorId))];
-      setInstructors(uniqueInstructors);
+      const token = getAuthTokenFromClient();
+      const { instructors: instructorsList } = await listInstructors(token || undefined);
+      setInstructors(
+        instructorsList.map((instructor) => ({
+          id: instructor.id,
+          name: instructor.name,
+          avatar: instructor.avatar,
+        }))
+      );
     } catch (error) {
       console.error("Erro ao carregar instrutores:", error);
     }
@@ -164,12 +172,13 @@ export default function NewCoursePage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="instructorId">ID do Instrutor *</Label>
-                  <Input
+                  <Label htmlFor="instructorId">Instrutor *</Label>
+                  <InstructorSelect
                     id="instructorId"
+                    instructors={instructors}
                     value={formData.instructorId}
-                    onChange={(e) =>
-                      setFormData({ ...formData, instructorId: e.target.value })
+                    onChange={(value) =>
+                      setFormData({ ...formData, instructorId: value })
                     }
                     required
                   />

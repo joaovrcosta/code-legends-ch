@@ -8,9 +8,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
+import { InstructorSelect } from "@/components/ui/instructor-select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getCourseById, updateCourse, type UpdateCourseData } from "@/actions/course";
 import { listCategories } from "@/actions/category";
+import { listInstructors } from "@/actions/user";
 import { getAuthTokenFromClient } from "@/lib/auth";
 import { generateSlug } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
@@ -24,11 +26,13 @@ export default function EditCoursePage() {
   const [loadingCourse, setLoadingCourse] = useState(true);
   const [slugManuallyEdited, setSlugManuallyEdited] = useState(false);
   const [categories, setCategories] = useState<Array<{ id: string; name: string }>>([]);
+  const [instructors, setInstructors] = useState<Array<{ id: string; name: string; avatar?: string | null }>>([]);
   const [formData, setFormData] = useState<UpdateCourseData>({
     title: "",
     slug: "",
     description: "",
     level: "INICIANTE",
+    instructorId: "",
     categoryId: "",
     thumbnail: "",
     icon: "",
@@ -49,6 +53,7 @@ export default function EditCoursePage() {
 
   useEffect(() => {
     loadCategories();
+    loadInstructors();
     loadCourse();
   }, [courseId]);
 
@@ -58,6 +63,22 @@ export default function EditCoursePage() {
       setCategories(categories.map((cat) => ({ id: cat.id, name: cat.name })));
     } catch (error) {
       console.error("Erro ao carregar categorias:", error);
+    }
+  };
+
+  const loadInstructors = async () => {
+    try {
+      const token = getAuthTokenFromClient();
+      const { instructors: instructorsList } = await listInstructors(token || undefined);
+      setInstructors(
+        instructorsList.map((instructor) => ({
+          id: instructor.id,
+          name: instructor.name,
+          avatar: instructor.avatar,
+        }))
+      );
+    } catch (error) {
+      console.error("Erro ao carregar instrutores:", error);
     }
   };
 
@@ -74,6 +95,7 @@ export default function EditCoursePage() {
         slug: course.slug,
         description: course.description,
         level: course.level,
+        instructorId: course.instructorId || "",
         categoryId: course.categoryId || "",
         thumbnail: course.thumbnail || "",
         icon: course.icon || "",
@@ -189,6 +211,19 @@ export default function EditCoursePage() {
                     <option value="INTERMEDIARIO">Intermediário</option>
                     <option value="AVANCADO">Avançado</option>
                   </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="instructorId">Instrutor *</Label>
+                  <InstructorSelect
+                    id="instructorId"
+                    instructors={instructors}
+                    value={formData.instructorId}
+                    onChange={(value) =>
+                      setFormData({ ...formData, instructorId: value })
+                    }
+                    required
+                  />
                 </div>
 
                 <div className="space-y-2">

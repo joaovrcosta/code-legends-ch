@@ -7,6 +7,7 @@ export interface UpdateCourseData {
   slug?: string;
   description?: string;
   level?: string;
+  instructorId?: string;
   categoryId?: string;
   thumbnail?: string;
   icon?: string;

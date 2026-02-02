@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { removeAuthToken } from "@/lib/auth";
+import { Button } from "@/components/ui/button";
 import {
   BookOpen,
   Users,
@@ -10,6 +12,7 @@ import {
   Layers,
   FolderTree,
   GraduationCap,
+  LogOut,
 } from "lucide-react";
 
 const navigation = [
@@ -23,6 +26,12 @@ const navigation = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    removeAuthToken();
+    router.push("/login");
+  };
 
   return (
     <div className="flex h-screen w-64 flex-col bg-gray-900 text-white">
@@ -49,6 +58,16 @@ export function Sidebar() {
           );
         })}
       </nav>
+      <div className="border-t border-gray-800 p-4">
+        <Button
+          onClick={handleLogout}
+          variant="ghost"
+          className="w-full justify-start text-gray-300 hover:bg-gray-800 hover:text-white"
+        >
+          <LogOut className="mr-3 h-5 w-5" />
+          Sair
+        </Button>
+      </div>
     </div>
   );
 }
