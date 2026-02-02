@@ -372,23 +372,37 @@ export default function LessonsPage() {
                           <TableCell>{lesson.slug}</TableCell>
                           <TableCell>
                             <span
-                              className={`px-2 py-1 rounded-full text-xs ${
+                              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
                                 lesson.isFree
-                                  ? "bg-green-100 text-green-800"
-                                  : "bg-yellow-100 text-yellow-800"
+                                  ? "bg-emerald-50 text-emerald-700"
+                                  : "bg-amber-50 text-amber-700"
                               }`}
                             >
+                              <span
+                                className={`w-1.5 h-1.5 rounded-full ${
+                                  lesson.isFree
+                                    ? "bg-emerald-700"
+                                    : "bg-amber-700"
+                                }`}
+                              />
                               {lesson.isFree ? "Sim" : "Não"}
                             </span>
                           </TableCell>
                           <TableCell>
                             <span
-                              className={`px-2 py-1 rounded-full text-xs ${
+                              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
                                 lesson.locked
-                                  ? "bg-red-100 text-red-800"
-                                  : "bg-green-100 text-green-800"
+                                  ? "bg-red-50 text-red-700"
+                                  : "bg-emerald-50 text-emerald-700"
                               }`}
                             >
+                              <span
+                                className={`w-1.5 h-1.5 rounded-full ${
+                                  lesson.locked
+                                    ? "bg-red-700"
+                                    : "bg-emerald-700"
+                                }`}
+                              />
                               {lesson.locked ? "Bloqueada" : "Disponível"}
                             </span>
                           </TableCell>

@@ -102,12 +102,19 @@ export default function CoursesPage() {
                         <TableCell>{course.level}</TableCell>
                         <TableCell>
                           <span
-                            className={`px-2 py-1 rounded-full text-xs ${
+                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
                               course.active
-                                ? "bg-green-100 text-green-800"
-                                : "bg-gray-100 text-gray-800"
+                                ? "bg-emerald-50 text-emerald-700"
+                                : "bg-gray-100 text-gray-700"
                             }`}
                           >
+                            <span
+                              className={`w-1.5 h-1.5 rounded-full ${
+                                course.active
+                                  ? "bg-emerald-700"
+                                  : "bg-gray-700"
+                              }`}
+                            />
                             {course.active ? "Ativo" : "Inativo"}
                           </span>
                         </TableCell>

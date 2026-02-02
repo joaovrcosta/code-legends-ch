@@ -91,13 +91,26 @@ export default function UsersPage() {
   const getRoleBadgeColor = (role: string) => {
     switch (role) {
       case "ADMIN":
-        return "bg-purple-100 text-purple-800";
+        return "bg-purple-50 text-purple-700";
       case "INSTRUCTOR":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-50 text-blue-700";
       case "STUDENT":
-        return "bg-green-100 text-green-800";
+        return "bg-emerald-50 text-emerald-700";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-100 text-gray-700";
+    }
+  };
+
+  const getRoleDotColor = (role: string) => {
+    switch (role) {
+      case "ADMIN":
+        return "bg-purple-700";
+      case "INSTRUCTOR":
+        return "bg-blue-700";
+      case "STUDENT":
+        return "bg-emerald-700";
+      default:
+        return "bg-gray-700";
     }
   };
 
@@ -183,10 +196,15 @@ export default function UsersPage() {
                         <TableCell>{user.email}</TableCell>
                         <TableCell>
                           <span
-                            className={`px-2 py-1 rounded-full text-xs ${getRoleBadgeColor(
+                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${getRoleBadgeColor(
                               user.role
                             )}`}
                           >
+                            <span
+                              className={`w-1.5 h-1.5 rounded-full ${getRoleDotColor(
+                                user.role
+                              )}`}
+                            />
                             {getRoleLabel(user.role)}
                           </span>
                         </TableCell>
@@ -194,12 +212,19 @@ export default function UsersPage() {
                         <TableCell>{user.totalXp.toLocaleString("pt-BR")}</TableCell>
                         <TableCell>
                           <span
-                            className={`px-2 py-1 rounded-full text-xs ${
+                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
                               user.onboardingCompleted
-                                ? "bg-green-100 text-green-800"
-                                : "bg-yellow-100 text-yellow-800"
+                                ? "bg-emerald-50 text-emerald-700"
+                                : "bg-amber-50 text-amber-700"
                             }`}
                           >
+                            <span
+                              className={`w-1.5 h-1.5 rounded-full ${
+                                user.onboardingCompleted
+                                  ? "bg-emerald-700"
+                                  : "bg-amber-700"
+                              }`}
+                            />
                             {user.onboardingCompleted
                               ? "Completo"
                               : "Pendente"}
