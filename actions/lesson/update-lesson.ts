@@ -13,6 +13,8 @@ export interface UpdateLessonData {
   video_duration?: string;
   locked?: boolean;
   order?: number;
+  authorId?: string;
+  submoduleId?: number;
 }
 
 export interface UpdateLessonResponse {

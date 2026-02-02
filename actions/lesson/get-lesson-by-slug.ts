@@ -2,14 +2,45 @@
 
 import type { Lesson } from "./list-lessons";
 
+export interface Author {
+  id: string;
+  name: string;
+  email: string;
+  avatar?: string | null;
+  bio?: string | null;
+  expertise?: string[];
+}
+
+export interface Module {
+  id: string;
+  title: string;
+  slug: string;
+  courseId: string;
+}
+
+export interface Submodule {
+  id: number;
+  title: string;
+  moduleId: string;
+  module?: Module;
+}
+
+export interface LessonDetail extends Omit<Lesson, 'id'> {
+  id: number | string;
+  completed?: boolean;
+  completedAt?: string | null;
+  author?: Author;
+  submodule?: Submodule;
+}
+
 export interface LessonResponse {
-  lesson: Lesson;
+  lesson: LessonDetail;
 }
 
 /**
- * Busca uma aula pelo slug
+ * Busca uma aula pelo slug com todos os detalhes (author, submodule, etc.)
  */
-export async function getLessonBySlug(slug: string, token: string): Promise<Lesson | null> {
+export async function getLessonBySlug(slug: string, token: string): Promise<LessonDetail | null> {
   if (!slug) return null;
 
   try {

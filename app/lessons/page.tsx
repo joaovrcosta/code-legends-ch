@@ -15,13 +15,14 @@ import {
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { listLessons, deleteLesson, type Lesson } from "@/actions/lesson";
+import { listLessons, deleteLesson, getLessonBySlug, type Lesson, type LessonDetail } from "@/actions/lesson";
 import { listGroups } from "@/actions/group";
 import { listModules } from "@/actions/module";
 import { listCourses } from "@/actions/course";
 import { getAuthTokenFromClient } from "@/lib/auth";
 import { createLesson, type CreateLessonData } from "@/actions/lesson";
-import { Plus, Edit, Trash2, Upload } from "lucide-react";
+import { Plus, Edit, Trash2, Upload, Eye } from "lucide-react";
+import { LessonDetailsModal } from "@/components/ui/lesson-details-modal";
 import Link from "next/link";
 
 export default function LessonsPage() {
@@ -38,6 +39,9 @@ export default function LessonsPage() {
   const [importing, setImporting] = useState(false);
   const [importError, setImportError] = useState<string | null>(null);
   const [importSuccess, setImportSuccess] = useState<number>(0);
+  const [selectedLesson, setSelectedLesson] = useState<LessonDetail | null>(null);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [loadingDetails, setLoadingDetails] = useState(false);
 
   useEffect(() => {
     loadCourses();
@@ -224,6 +228,32 @@ export default function LessonsPage() {
     setImportSuccess(0);
   };
 
+  const handleViewDetails = async (slug: string) => {
+    try {
+      setLoadingDetails(true);
+      setShowDetailsModal(true);
+      const token = getAuthTokenFromClient();
+      if (!token) {
+        alert("Token de autenticação não encontrado");
+        setShowDetailsModal(false);
+        return;
+      }
+      const lesson = await getLessonBySlug(slug, token);
+      if (lesson) {
+        setSelectedLesson(lesson);
+      } else {
+        alert("Aula não encontrada");
+        setShowDetailsModal(false);
+      }
+    } catch (error) {
+      console.error("Erro ao carregar detalhes da aula:", error);
+      alert("Erro ao carregar detalhes da aula");
+      setShowDetailsModal(false);
+    } finally {
+      setLoadingDetails(false);
+    }
+  };
+
   return (
     <MainLayout>
       <div className="space-y-6">
@@ -322,6 +352,7 @@ export default function LessonsPage() {
                       <TableHead>Título</TableHead>
                       <TableHead>Tipo</TableHead>
                       <TableHead>Slug</TableHead>
+                      <TableHead>Gratuita</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead>Ações</TableHead>
                     </TableRow>
@@ -329,7 +360,7 @@ export default function LessonsPage() {
                   <TableBody>
                     {lessons.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-center py-8 text-gray-500">
+                        <TableCell colSpan={6} className="text-center py-8 text-gray-500">
                           Nenhuma aula encontrada
                         </TableCell>
                       </TableRow>
@@ -339,6 +370,17 @@ export default function LessonsPage() {
                           <TableCell className="font-medium">{lesson.title}</TableCell>
                           <TableCell>{lesson.type}</TableCell>
                           <TableCell>{lesson.slug}</TableCell>
+                          <TableCell>
+                            <span
+                              className={`px-2 py-1 rounded-full text-xs ${
+                                lesson.isFree
+                                  ? "bg-green-100 text-green-800"
+                                  : "bg-yellow-100 text-yellow-800"
+                              }`}
+                            >
+                              {lesson.isFree ? "Sim" : "Não"}
+                            </span>
+                          </TableCell>
                           <TableCell>
                             <span
                               className={`px-2 py-1 rounded-full text-xs ${
@@ -352,15 +394,24 @@ export default function LessonsPage() {
                           </TableCell>
                           <TableCell>
                             <div className="flex gap-2">
-                              <Link href={`/lessons/${lesson.id}/edit`}>
-                                <Button variant="ghost" size="icon">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => handleViewDetails(lesson.slug)}
+                                title="Ver detalhes"
+                              >
+                                <Eye className="h-4 w-4" />
+                              </Button>
+                              <Link href={`/lessons/${lesson.slug}/edit`}>
+                                <Button variant="ghost" size="icon" title="Editar">
                                   <Edit className="h-4 w-4" />
                                 </Button>
                               </Link>
                               <Button
                                 variant="ghost"
                                 size="icon"
-                                onClick={() => handleDelete(lesson.id)}
+                                onClick={() => handleDelete(lesson.id.toString())}
+                                title="Excluir"
                               >
                                 <Trash2 className="h-4 w-4 text-red-600" />
                               </Button>
@@ -429,6 +480,17 @@ export default function LessonsPage() {
             </Card>
           </div>
         )}
+
+        {/* Modal de Detalhes da Aula */}
+        <LessonDetailsModal
+          lesson={selectedLesson}
+          isOpen={showDetailsModal}
+          onClose={() => {
+            setShowDetailsModal(false);
+            setSelectedLesson(null);
+          }}
+          loading={loadingDetails}
+        />
       </div>
     </MainLayout>
   );
