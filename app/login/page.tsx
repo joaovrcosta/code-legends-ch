@@ -33,11 +33,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-[#121214]">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl text-center">Code Legends</CardTitle>
-          <p className="text-center text-gray-600 mt-2">Content Hub - Login</p>
+          <p className="text-center text-gray-600 dark:text-gray-400 mt-2">Content Hub - Login</p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">

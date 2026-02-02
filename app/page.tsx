@@ -10,8 +10,8 @@ export default function Home() {
     <MainLayout>
       <div className="space-y-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-600 mt-2">Bem-vindo ao Content Hub do Code Legends</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Dashboard</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-2">Bem-vindo ao Content Hub do Code Legends</p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -22,8 +22,8 @@ export default function Home() {
                 <BookOpen className="h-4 w-4 text-blue-600" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">Gerenciar</div>
-                <p className="text-xs text-gray-500">Criar e editar cursos</p>
+                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">Gerenciar</div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Criar e editar cursos</p>
               </CardContent>
             </Card>
           </Link>
@@ -35,8 +35,8 @@ export default function Home() {
                 <Layers className="h-4 w-4 text-green-600" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">Gerenciar</div>
-                <p className="text-xs text-gray-500">Organizar módulos</p>
+                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">Gerenciar</div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Organizar módulos</p>
               </CardContent>
             </Card>
           </Link>
@@ -48,8 +48,8 @@ export default function Home() {
                 <FileText className="h-4 w-4 text-purple-600" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">Gerenciar</div>
-                <p className="text-xs text-gray-500">Criar e editar aulas</p>
+                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">Gerenciar</div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Criar e editar aulas</p>
               </CardContent>
             </Card>
           </Link>
@@ -61,8 +61,8 @@ export default function Home() {
                 <Users className="h-4 w-4 text-orange-600" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">Gerenciar</div>
-                <p className="text-xs text-gray-500">Gerenciar usuários</p>
+                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">Gerenciar</div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Gerenciar usuários</p>
               </CardContent>
             </Card>
           </Link>

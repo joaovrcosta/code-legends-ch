@@ -259,8 +259,8 @@ export default function LessonsPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Aulas</h1>
-            <p className="text-gray-600 mt-2">Gerencie as aulas dos submódulos</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Aulas</h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-2">Gerencie as aulas dos submódulos</p>
           </div>
           {selectedGroup && (
             <div className="flex gap-2">
@@ -374,15 +374,15 @@ export default function LessonsPage() {
                             <span
                               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
                                 lesson.isFree
-                                  ? "bg-emerald-50 text-emerald-700"
-                                  : "bg-amber-50 text-amber-700"
+                                  ? "bg-emerald-900/20 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300"
+                                  : "bg-amber-900/20 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300"
                               }`}
                             >
                               <span
                                 className={`w-1.5 h-1.5 rounded-full ${
                                   lesson.isFree
-                                    ? "bg-emerald-700"
-                                    : "bg-amber-700"
+                                    ? "bg-emerald-700 dark:bg-emerald-400"
+                                    : "bg-amber-700 dark:bg-amber-400"
                                 }`}
                               />
                               {lesson.isFree ? "Sim" : "Não"}
@@ -392,15 +392,15 @@ export default function LessonsPage() {
                             <span
                               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
                                 lesson.locked
-                                  ? "bg-red-50 text-red-700"
-                                  : "bg-emerald-50 text-emerald-700"
+                                  ? "bg-red-900/20 dark:bg-red-500/20 text-red-700 dark:text-red-300"
+                                  : "bg-emerald-900/20 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300"
                               }`}
                             >
                               <span
                                 className={`w-1.5 h-1.5 rounded-full ${
                                   lesson.locked
-                                    ? "bg-red-700"
-                                    : "bg-emerald-700"
+                                    ? "bg-red-700 dark:bg-red-400"
+                                    : "bg-emerald-700 dark:bg-emerald-400"
                                 }`}
                               />
                               {lesson.locked ? "Bloqueada" : "Disponível"}

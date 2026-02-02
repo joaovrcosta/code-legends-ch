@@ -58,8 +58,8 @@ export default function CoursesPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Cursos</h1>
-            <p className="text-gray-600 mt-2">Gerencie todos os cursos da plataforma</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Cursos</h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-2">Gerencie todos os cursos da plataforma</p>
           </div>
           <Link href="/courses/new">
             <Button>
@@ -104,15 +104,15 @@ export default function CoursesPage() {
                           <span
                             className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
                               course.active
-                                ? "bg-emerald-50 text-emerald-700"
-                                : "bg-gray-100 text-gray-700"
+                                ? "bg-emerald-900/20 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300"
+                                : "bg-gray-900/20 dark:bg-gray-500/20 text-gray-700 dark:text-gray-300"
                             }`}
                           >
                             <span
                               className={`w-1.5 h-1.5 rounded-full ${
                                 course.active
-                                  ? "bg-emerald-700"
-                                  : "bg-gray-700"
+                                  ? "bg-emerald-700 dark:bg-emerald-400"
+                                  : "bg-gray-700 dark:bg-gray-400"
                               }`}
                             />
                             {course.active ? "Ativo" : "Inativo"}

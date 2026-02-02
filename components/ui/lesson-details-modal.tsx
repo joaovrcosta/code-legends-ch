@@ -43,9 +43,9 @@ export function LessonDetailsModal({
         </CardHeader>
         <CardContent className="space-y-6">
           {loading ? (
-            <div className="text-center py-8">Carregando...</div>
+            <div className="text-center py-8 text-gray-900 dark:text-gray-100">Carregando...</div>
           ) : !lesson ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
               Aula não encontrada
             </div>
           ) : (
@@ -53,60 +53,60 @@ export function LessonDetailsModal({
               {/* Informações Básicas */}
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">Informações Básicas</h3>
+                  <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">Informações Básicas</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm text-gray-600">Título</p>
-                      <p className="font-medium">{lesson.title}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Título</p>
+                      <p className="font-medium text-gray-900 dark:text-gray-100">{lesson.title}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">Slug</p>
-                      <p className="font-medium">{lesson.slug}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Slug</p>
+                      <p className="font-medium text-gray-900 dark:text-gray-100">{lesson.slug}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">Tipo</p>
-                      <p className="font-medium capitalize">{lesson.type}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Tipo</p>
+                      <p className="font-medium capitalize text-gray-900 dark:text-gray-100">{lesson.type}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">Ordem</p>
-                      <p className="font-medium">{lesson.order || "N/A"}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Ordem</p>
+                      <p className="font-medium text-gray-900 dark:text-gray-100">{lesson.order || "N/A"}</p>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-600 mb-2">Descrição</p>
-                  <p className="text-sm">{lesson.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Descrição</p>
+                  <p className="text-sm text-gray-900 dark:text-gray-100">{lesson.description}</p>
                 </div>
               </div>
 
               {/* Status */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Status</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Status</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center gap-2">
                     {lesson.locked ? (
                       <>
-                        <Lock className="h-4 w-4 text-red-600" />
-                        <span className="text-sm">Bloqueada</span>
+                        <Lock className="h-4 w-4 text-red-600 dark:text-red-400" />
+                        <span className="text-sm text-gray-900 dark:text-gray-100">Bloqueada</span>
                       </>
                     ) : (
                       <>
-                        <Unlock className="h-4 w-4 text-green-600" />
-                        <span className="text-sm">Disponível</span>
+                        <Unlock className="h-4 w-4 text-green-600 dark:text-green-400" />
+                        <span className="text-sm text-gray-900 dark:text-gray-100">Disponível</span>
                       </>
                     )}
                   </div>
                   <div className="flex items-center gap-2">
                     {lesson.isFree ? (
                       <>
-                        <CheckCircle className="h-4 w-4 text-green-600" />
-                        <span className="text-sm">Gratuita</span>
+                        <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+                        <span className="text-sm text-gray-900 dark:text-gray-100">Gratuita</span>
                       </>
                     ) : (
                       <>
-                        <XCircle className="h-4 w-4 text-yellow-600" />
-                        <span className="text-sm">Paga</span>
+                        <XCircle className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
+                        <span className="text-sm text-gray-900 dark:text-gray-100">Paga</span>
                       </>
                     )}
                   </div>
@@ -114,13 +114,13 @@ export function LessonDetailsModal({
                     <div className="flex items-center gap-2">
                       {lesson.completed ? (
                         <>
-                          <CheckCircle className="h-4 w-4 text-green-600" />
-                          <span className="text-sm">Concluída</span>
+                          <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+                          <span className="text-sm text-gray-900 dark:text-gray-100">Concluída</span>
                         </>
                       ) : (
                         <>
-                          <XCircle className="h-4 w-4 text-gray-400" />
-                          <span className="text-sm">Não concluída</span>
+                          <XCircle className="h-4 w-4 text-gray-400 dark:text-gray-500" />
+                          <span className="text-sm text-gray-900 dark:text-gray-100">Não concluída</span>
                         </>
                       )}
                     </div>
@@ -177,7 +177,7 @@ export function LessonDetailsModal({
               {/* Autor */}
               {lesson.author && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <h3 className="text-lg font-semibold flex items-center gap-2 text-gray-900 dark:text-gray-100">
                     <User className="h-5 w-5" />
                     Autor
                   </h3>
@@ -190,17 +190,17 @@ export function LessonDetailsModal({
                       />
                     )}
                     <div>
-                      <p className="font-medium">{lesson.author.name}</p>
-                      <p className="text-sm text-gray-600">{lesson.author.email}</p>
+                      <p className="font-medium text-gray-900 dark:text-gray-100">{lesson.author.name}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{lesson.author.email}</p>
                       {lesson.author.bio && (
-                        <p className="text-sm text-gray-500 mt-1">{lesson.author.bio}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{lesson.author.bio}</p>
                       )}
                       {lesson.author.expertise && lesson.author.expertise.length > 0 && (
                         <div className="flex flex-wrap gap-1 mt-2">
                           {lesson.author.expertise.map((exp, idx) => (
                             <span
                               key={idx}
-                              className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded"
+                              className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded"
                             >
                               {exp}
                             </span>
@@ -215,20 +215,20 @@ export function LessonDetailsModal({
               {/* Submódulo e Módulo */}
               {lesson.submodule && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <h3 className="text-lg font-semibold flex items-center gap-2 text-gray-900 dark:text-gray-100">
                     <BookOpen className="h-5 w-5" />
                     Estrutura do Curso
                   </h3>
                   <div className="space-y-2">
                     <div>
-                      <p className="text-sm text-gray-600">Submódulo</p>
-                      <p className="font-medium">{lesson.submodule.title}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Submódulo</p>
+                      <p className="font-medium text-gray-900 dark:text-gray-100">{lesson.submodule.title}</p>
                     </div>
                     {lesson.submodule.module && (
                       <div>
-                        <p className="text-sm text-gray-600">Módulo</p>
-                        <p className="font-medium">{lesson.submodule.module.title}</p>
-                        <p className="text-xs text-gray-500">Slug: {lesson.submodule.module.slug}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Módulo</p>
+                        <p className="font-medium text-gray-900 dark:text-gray-100">{lesson.submodule.module.title}</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">Slug: {lesson.submodule.module.slug}</p>
                       </div>
                     )}
                   </div>
@@ -237,26 +237,26 @@ export function LessonDetailsModal({
 
               {/* Datas */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Datas</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Datas</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-gray-600">Criado em</p>
-                    <p className="font-medium">{formatDate(lesson.createdAt)}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Criado em</p>
+                    <p className="font-medium text-gray-900 dark:text-gray-100">{formatDate(lesson.createdAt)}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">Atualizado em</p>
-                    <p className="font-medium">{formatDate(lesson.updatedAt)}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Atualizado em</p>
+                    <p className="font-medium text-gray-900 dark:text-gray-100">{formatDate(lesson.updatedAt)}</p>
                   </div>
                   {lesson.completedAt && (
                     <div>
-                      <p className="text-sm text-gray-600">Concluída em</p>
-                      <p className="font-medium">{formatDate(lesson.completedAt)}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Concluída em</p>
+                      <p className="font-medium text-gray-900 dark:text-gray-100">{formatDate(lesson.completedAt)}</p>
                     </div>
                   )}
                 </div>
               </div>
 
-              <div className="flex justify-end pt-4 border-t">
+              <div className="flex justify-end pt-4 border-t border-gray-200 dark:border-[#25252a]">
                 <Button onClick={onClose}>Fechar</Button>
               </div>
             </>

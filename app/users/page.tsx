@@ -16,6 +16,7 @@ import { listUsers, deleteUser, getUserById, type UserFull } from "@/actions/use
 import { getAuthTokenFromClient } from "@/lib/auth";
 import { Users as UsersIcon, Trash2, Eye, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function UsersPage() {
   const [users, setUsers] = useState<UserFull[]>([]);
@@ -91,26 +92,26 @@ export default function UsersPage() {
   const getRoleBadgeColor = (role: string) => {
     switch (role) {
       case "ADMIN":
-        return "bg-purple-50 text-purple-700";
+        return "bg-purple-900/20 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300";
       case "INSTRUCTOR":
-        return "bg-blue-50 text-blue-700";
+        return "bg-blue-900/20 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300";
       case "STUDENT":
-        return "bg-emerald-50 text-emerald-700";
+        return "bg-emerald-900/20 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300";
       default:
-        return "bg-gray-100 text-gray-700";
+        return "bg-gray-900/20 dark:bg-gray-500/20 text-gray-700 dark:text-gray-300";
     }
   };
 
   const getRoleDotColor = (role: string) => {
     switch (role) {
       case "ADMIN":
-        return "bg-purple-700";
+        return "bg-purple-700 dark:bg-purple-400";
       case "INSTRUCTOR":
-        return "bg-blue-700";
+        return "bg-blue-700 dark:bg-blue-400";
       case "STUDENT":
-        return "bg-emerald-700";
+        return "bg-emerald-700 dark:bg-emerald-400";
       default:
-        return "bg-gray-700";
+        return "bg-gray-700 dark:bg-gray-400";
     }
   };
 
@@ -131,10 +132,10 @@ export default function UsersPage() {
     <MainLayout>
       <div className="space-y-6">
         <div className="flex items-center gap-3">
-          <UsersIcon className="h-8 w-8 text-gray-900" />
+          <UsersIcon className="h-8 w-8 text-gray-900 dark:text-gray-100" />
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Usuários</h1>
-            <p className="text-gray-600 mt-2">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Usuários</h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-2">
               Gerencie todos os usuários da plataforma
             </p>
           </div>
@@ -214,15 +215,15 @@ export default function UsersPage() {
                           <span
                             className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
                               user.onboardingCompleted
-                                ? "bg-emerald-50 text-emerald-700"
-                                : "bg-amber-50 text-amber-700"
+                                ? "bg-emerald-900/20 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300"
+                                : "bg-amber-900/20 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300"
                             }`}
                           >
                             <span
                               className={`w-1.5 h-1.5 rounded-full ${
                                 user.onboardingCompleted
-                                  ? "bg-emerald-700"
-                                  : "bg-amber-700"
+                                  ? "bg-emerald-700 dark:bg-emerald-400"
+                                  : "bg-amber-700 dark:bg-amber-400"
                               }`}
                             />
                             {user.onboardingCompleted
@@ -233,18 +234,20 @@ export default function UsersPage() {
                         <TableCell>{formatDate(user.createdAt)}</TableCell>
                         <TableCell>
                           <div className="flex gap-2">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => handleViewDetails(user.id)}
-                              disabled={loadingDetails}
-                            >
-                              <Eye className="h-4 w-4 text-blue-600" />
-                            </Button>
+                            <Link href={`/users/${user.id}/overview`}>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                title="Ver overview"
+                              >
+                                <Eye className="h-4 w-4 text-blue-600" />
+                              </Button>
+                            </Link>
                             <Button
                               variant="ghost"
                               size="icon"
                               onClick={() => handleDelete(user.id)}
+                              title="Excluir"
                             >
                               <Trash2 className="h-4 w-4 text-red-600" />
                             </Button>

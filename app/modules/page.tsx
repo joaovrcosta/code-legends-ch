@@ -79,8 +79,8 @@ export default function ModulesPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Módulos</h1>
-            <p className="text-gray-600 mt-2">Gerencie os módulos dos cursos</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Módulos</h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-2">Gerencie os módulos dos cursos</p>
           </div>
           {selectedCourse && (
             <Link href={`/modules/new?courseId=${selectedCourse}`}>

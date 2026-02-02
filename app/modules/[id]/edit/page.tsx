@@ -98,8 +98,8 @@ export default function EditModulePage() {
             </Button>
           </Link>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Editar Módulo</h1>
-            <p className="text-gray-600 mt-2">Atualize as informações do módulo</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Editar Módulo</h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-2">Atualize as informações do módulo</p>
           </div>
         </div>
 
